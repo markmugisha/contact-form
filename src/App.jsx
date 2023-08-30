@@ -1,44 +1,45 @@
-import './App.css'
-import Item from './Item'
-import ItemForm from './ItemForm'
+import "./App.css";
+import Contact from "./Contact";
+import ContactForm from "./ContactForm";
 
-import { useState } from "react"
+import { useState } from "react";
 
 function App() {
-  const [items, setItems] = useState([
-    {
-      id: 0,
-      text: ""
-    }  
-  ])
+  const [contacts, setContacts] = useState([]);
 
-  const handleAddItem = (text) => {
-    const item = {
-      id: items.length,
-      text 
-    }
+  const handleAddContact = (name, phone) => {
+    const newContact = {
+      id: contacts.length + 1,
+      name,
+      phone,
+    };
 
-    setItems([item, ...items])
-    console.log(`New Item Added: Pdt: ${text}, Pdt id: ${item.id}`)
-  }
+    setContacts([...contacts, newContact]);
+    console.log(
+      `New contact added: id: ${newContact.id}; Name: ${name}, Tel: ${phone}`
+    );
+  };
 
-  const handleDeleteItem = (id) => {
-    setItems(items.filter(item => item.id !== id))
-    console.log("Deleted Item id: ", id)
-  }
+  const handleDeleteContact = (id) => {
+    setContacts(contacts.filter((contact) => contact.id !== id));
+    console.log("Deleted contact id: ", id);
+  };
 
-  
   return (
-    <div className="root-app" >
-      <h1>Inventory Tracker</h1>
+    <div className="root-app">
+      <h1>Contact Form</h1>
 
-      <ItemForm onAddItem={handleAddItem} />
+      <ContactForm onAddContact={handleAddContact} />
 
-      {items.map(item => (
-        <Item onDelete={handleDeleteItem} key={item.id} {...item} />
+      {contacts.map((newContact) => (
+        <Contact
+          onDelete={handleDeleteContact}
+          key={newContact.id}
+          {...newContact}
+        />
       ))}
     </div>
-  )
+  );
 }
 
 export default App;
